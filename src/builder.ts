@@ -17,25 +17,25 @@ import {
   import { concatMap, last, tap } from 'rxjs/operators';
   import * as ts from 'typescript'; // tslint:disable-line:no-implicit-dependencies
   import * as webpack from 'webpack';
-  import { WebpackConfigOptions } from '../angular-cli-files/models/build-options';
+  import { WebpackConfigOptions } from '@angular-devkit/build-angular/src/angular-cli-files/models/build-options';
   import {
     getAotConfig,
     getBrowserConfig,
     getCommonConfig,
     getNonAotConfig,
     getStylesConfig,
-  } from '../angular-cli-files/models/webpack-configs';
-  import { getWebpackStatsConfig } from '../angular-cli-files/models/webpack-configs/utils';
-  import { readTsconfig } from '../angular-cli-files/utilities/read-tsconfig';
-  import { requireProjectModule } from '../angular-cli-files/utilities/require-project-module';
-  import { augmentAppWithServiceWorker } from '../angular-cli-files/utilities/service-worker';
+  } from '@angular-devkit/build-angular/src/angular-cli-files/models/webpack-configs';
+  import { getWebpackStatsConfig } from '@angular-devkit/build-angular/src/angular-cli-files/models/webpack-configs/utils';
+  import { readTsconfig } from '@angular-devkit/build-angular/src/angular-cli-files/utilities/read-tsconfig';
+  import { requireProjectModule } from '@angular-devkit/build-angular/src/angular-cli-files/utilities/require-project-module';
+  import { augmentAppWithServiceWorker } from '@angular-devkit/build-angular/src/angular-cli-files/utilities/service-worker';
   import {
     statsErrorsToString,
     statsToString,
     statsWarningsToString,
-  } from '../angular-cli-files/utilities/stats';
-  import { addFileReplacements, normalizeAssetPatterns } from '../utils';
-  import { AssetPatternObject, BrowserBuilderSchema, CurrentFileReplacement } from './schema';
+  } from '@angular-devkit/build-angular/src/angular-cli-files/utilities/stats';
+  import { addFileReplacements, normalizeAssetPatterns } from '@angular-devkit/build-angular/src/utils';
+  import { AssetPatternObject, BrowserBuilderSchema, CurrentFileReplacement } from '@angular-devkit/build-angular/src/browser/schema';
   const webpackMerge = require('webpack-merge');
   
   
@@ -44,12 +44,12 @@ import {
   // Right now this normalization has to be done in all other builders that make use of the
   // BrowserBuildSchema and BrowserBuilder.buildWebpackConfig.
   // It would really help if it happens during architect.validateBuilderOptions, or similar.
-  export interface NormalizedBrowserBuilderSchema extends BrowserBuilderSchema {
+  interface NormalizedBrowserBuilderSchema extends BrowserBuilderSchema {
     assets: AssetPatternObject[];
     fileReplacements: CurrentFileReplacement[];
   }
   
-  export class BrowserBuilder implements Builder<BrowserBuilderSchema> {
+  export class NativescriptBuilder implements Builder<BrowserBuilderSchema> {
   
     constructor(public context: BuilderContext) { }
   
@@ -213,4 +213,4 @@ import {
     }
   }
   
-  export default BrowserBuilder;
+  export default NativescriptBuilder;
